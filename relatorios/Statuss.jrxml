@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Aniversariante" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="BlankPage" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4d527562-559c-4a96-8e08-82fbe5eb6086">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<queryString>
+		<![CDATA[SELECT
+     Pessoa.`nome` AS Pessoa,
+     Pessoa.`status` AS Status,
+     Pessoa.`telefone` AS Telefone,
+     Ministerio.`nome` AS Ministerio,
+     Grupo.`nome` AS Grupo
+FROM
+     `Ministerio` Ministerio INNER JOIN `Pessoa` Pessoa ON Ministerio.`id` = Pessoa.`ministerio_id`
+     INNER JOIN `Grupo` Grupo ON Pessoa.`grupo_id` = Grupo.`id` order by status]]>
+	</queryString>
+	<field name="Pessoa" class="java.lang.String"/>
+	<field name="Status" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Telefone" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Ministerio" class="java.lang.String"/>
+	<field name="Grupo" class="java.lang.String"/>
+	<variable name="Status_1" class="java.lang.Integer" resetType="Group" resetGroup="status" calculation="Count">
+		<variableExpression><![CDATA[$F{Status}]]></variableExpression>
+	</variable>
+	<group name="status">
+		<groupExpression><![CDATA[$F{Status}]]></groupExpression>
+		<groupFooter>
+			<band height="29">
+				<rectangle>
+					<reportElement x="0" y="7" width="555" height="15" backcolor="#DBD8D8" uuid="e1b82d28-cf03-42fc-a657-1f5a143d7f57"/>
+					<graphicElement>
+						<pen lineWidth="0.0"/>
+					</graphicElement>
+				</rectangle>
+				<textField>
+					<reportElement x="332" y="7" width="223" height="15" uuid="d17490bb-1755-4b9c-87d9-80854e869f58"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Status_1}+" pessoas com statu "+$F{Status}.toUpperCase()]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="byMinisterio">
+		<groupExpression><![CDATA[$F{Ministerio}]]></groupExpression>
+	</group>
+	<title>
+		<band height="124">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="96" backcolor="#16AFD5" uuid="68c5d224-152a-4143-9167-5bc5fc7f0835"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Dotted"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="21" y="32" width="342" height="33" forecolor="#000000" uuid="1c6a41c9-d951-41ae-aba8-7709ede3dabe"/>
+				<textElement>
+					<font size="26" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quadrante Ministerial]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="104" width="100" height="20" uuid="fbf73cea-08a9-4a6d-8e59-e2574cc3e513"/>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Pessoa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="111" y="104" width="111" height="20" uuid="1ee37f87-8d15-4617-a84a-36b30cf790f4"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Grupo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="222" y="104" width="111" height="20" uuid="e6750398-42e9-4ca8-aab2-3c5cc24554a7"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ministerio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="333" y="104" width="111" height="20" uuid="c4abfa15-f058-465b-adf8-687276a1c7e3"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Telefone]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="444" y="104" width="111" height="20" uuid="50ba6ea1-0ddb-4b83-9980-fefcdaf2deb3"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Status]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="7"/>
+	</pageHeader>
+	<detail>
+		<band height="23">
+			<textField>
+				<reportElement x="332" y="3" width="111" height="20" uuid="a3743b53-b707-44bf-b8cc-17864f1fd103"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Telefone}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="3" width="100" height="20" uuid="f9ee0117-0972-4c70-8946-f4daac834f7f"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Pessoa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="221" y="3" width="111" height="20" uuid="0c636265-a767-4de7-b866-500e2cc0f6f5"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Ministerio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="3" width="111" height="20" uuid="c3758ab9-5e57-4313-9a42-3597377e8618"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Grupo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="443" y="3" width="111" height="20" uuid="ee28afca-6ebb-48aa-a655-b80eebe4dae4"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Status}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="21" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="21" backcolor="#16AFD5" uuid="d27b159f-1f4e-4a63-8871-859f05446e52"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="445" y="4" width="76" height="13" uuid="ac20cfcf-566e-48da-a22d-593ee2ed58a1"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="521" y="4" width="30" height="13" uuid="923a81cd-1afc-4ff9-9d28-8bc8e37a8731"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="9" y="4" width="213" height="13" uuid="a8996270-2ecc-4f7b-852f-a5ae37345fc0"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="551">
+			<crosstab>
+				<reportElement x="0" y="0" width="555" height="84" uuid="2f171c15-4e0b-4155-87a3-c4c4e33d48bf"/>
+				<rowGroup name="Ministerio" width="148" totalPosition="End">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{Ministerio}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents backcolor="#F0F8FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textField>
+								<reportElement style="Crosstab Data Text" x="0" y="0" width="148" height="25" uuid="5843e3bc-c24a-472d-a4fc-03a4213cf221"/>
+								<textElement textAlignment="Left"/>
+								<textFieldExpression><![CDATA[$V{Ministerio}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents backcolor="#BFE1FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<staticText>
+								<reportElement x="0" y="0" width="148" height="25" uuid="9f5b48df-f294-4730-87fd-4e2da9186eb1"/>
+								<textElement verticalAlignment="Middle"/>
+								<text><![CDATA[Total Status]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<columnGroup name="Status" height="30">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{Status}]]></bucketExpression>
+					</bucket>
+					<crosstabColumnHeader>
+						<cellContents backcolor="#F0F8FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textField>
+								<reportElement style="Crosstab Data Text" x="0" y="0" width="99" height="30" uuid="f2c31c39-056e-42b1-874e-232005e855b7"/>
+								<textFieldExpression><![CDATA[$V{Status}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabColumnHeader>
+					<crosstabTotalColumnHeader>
+						<cellContents/>
+					</crosstabTotalColumnHeader>
+				</columnGroup>
+				<measure name="StatusMeasure" class="java.lang.Integer" calculation="Count">
+					<measureExpression><![CDATA[$F{Status}]]></measureExpression>
+				</measure>
+				<crosstabCell width="99" height="25">
+					<cellContents>
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="99" height="25" uuid="49be9434-4e35-46b7-b876-da336cefe781"/>
+							<textFieldExpression><![CDATA[$V{StatusMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="99" height="25" rowTotalGroup="Ministerio">
+					<cellContents backcolor="#BFE1FF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="99" height="25" uuid="e04f2680-ef92-41ba-8515-c04cc1853715"/>
+							<textFieldExpression><![CDATA[$V{StatusMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="50" columnTotalGroup="Status">
+					<cellContents backcolor="#BFE1FF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" uuid="53d17807-7d22-4e79-b181-5d04dea8ca29"/>
+							<textFieldExpression><![CDATA[$V{StatusMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell rowTotalGroup="Ministerio" columnTotalGroup="Status">
+					<cellContents backcolor="#BFE1FF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" uuid="aa4cefdd-6969-4ddc-ad4f-868e40c9e640"/>
+							<textFieldExpression><![CDATA[$V{StatusMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+			</crosstab>
+		</band>
+	</lastPageFooter>
+</jasperReport>

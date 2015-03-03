@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Aniversariante" language="java" pageWidth="595" pageHeight="842" whenNoDataType="BlankPage" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4d527562-559c-4a96-8e08-82fbe5eb6086">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<parameter name="mes" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[new SimpleDateFormat("MM").format(new Date())]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     Grupo.`nome` AS Grupo,
+     Ministerio.`nome` AS Ministerio,
+     Pessoa.`nascimento` AS Dia,
+     Pessoa.`nome` AS Pessoa
+FROM
+     `Grupo` Grupo INNER JOIN `Pessoa` Pessoa ON Grupo.`id` = Pessoa.`grupo_id`
+     INNER JOIN `Ministerio` Ministerio ON Pessoa.`ministerio_id` = Ministerio.`id`
+WHERE month(nascimento) = $P{mes}]]>
+	</queryString>
+	<field name="Grupo" class="java.lang.String"/>
+	<field name="Ministerio" class="java.lang.String"/>
+	<field name="Dia" class="java.sql.Date"/>
+	<field name="Pessoa" class="java.lang.String"/>
+	<group name="por_mes">
+		<groupExpression><![CDATA[$F{Dia}.getMonth()]]></groupExpression>
+		<groupFooter>
+			<band height="24">
+				<textField>
+					<reportElement x="9" y="0" width="170" height="20" uuid="f1ac86f4-43e5-465c-915a-40c1f197658f"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{Pessoa}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement x="179" y="0" width="133" height="20" uuid="b2392fd5-96bd-481d-b2db-824c4ea59fea"/>
+					<textElement textAlignment="Center">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{Grupo}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement x="312" y="0" width="137" height="20" uuid="0fdd3a1a-4c13-4bae-af5d-d22b38878757"/>
+					<textElement textAlignment="Center">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{Ministerio}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="dd/MM" isBlankWhenNull="true">
+					<reportElement x="449" y="0" width="103" height="20" uuid="9bb0ff3c-067b-40af-bf3c-2bf37d6dc531"/>
+					<textElement textAlignment="Center">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{Dia}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="129" splitType="Stretch">
+			<staticText>
+				<reportElement x="11" y="105" width="168" height="20" uuid="f67a1026-2bbd-439b-bd7a-7e44016526f8"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Pessoa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="179" y="105" width="133" height="20" uuid="c135aa52-ad70-48c7-91e1-8498fc4407dc"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Grupo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="312" y="105" width="137" height="20" uuid="b1412fb9-6283-4c13-850e-ee4476075714"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ministerio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="449" y="105" width="103" height="20" uuid="c908c297-be0b-4dd3-95de-32feea018173"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dia]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="96" backcolor="#017CF7" uuid="68c5d224-152a-4143-9167-5bc5fc7f0835"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<textField pattern="MMMMM">
+				<reportElement x="11" y="12" width="540" height="73" forecolor="#FEFEFE" uuid="a44ab7af-870e-4322-88df-660dacf402c0"/>
+				<textElement>
+					<font fontName="Lucida Sans" size="18" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Aniversariantes do mês de "+new SimpleDateFormat("MMMMM").format(new Date())+" da "+
+"obra Shalom de Horizonte"]]></textFieldExpression>
+				<patternExpression><![CDATA[new SimpleDateFormat("MMMMM").format(new Date())]]></patternExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<pageFooter>
+		<band height="21" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="21" backcolor="#C4BDBD" uuid="d27b159f-1f4e-4a63-8871-859f05446e52"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="445" y="4" width="76" height="13" uuid="ac20cfcf-566e-48da-a22d-593ee2ed58a1"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="521" y="4" width="30" height="13" uuid="923a81cd-1afc-4ff9-9d28-8bc8e37a8731"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="9" y="4" width="213" height="13" uuid="a8996270-2ecc-4f7b-852f-a5ae37345fc0"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

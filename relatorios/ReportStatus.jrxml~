@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReportStatus" language="Groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0767de8d-6d66-48d6-ba60-4f6013cc23de">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+     Pessoa.`nome` AS Pessoa,
+     Pessoa.`status` AS Status,
+     Pessoa.`telefone` AS Telefone,
+     Ministerio.`nome` AS Ministerio,
+     Grupo.`nome` AS Grupo
+FROM
+     `Ministerio` Ministerio INNER JOIN `Pessoa` Pessoa ON Ministerio.`id` = Pessoa.`ministerio_id`
+     INNER JOIN `Grupo` Grupo ON Pessoa.`grupo_id` = Grupo.`id` order by status]]>
+	</queryString>
+	<field name="Pessoa" class="java.lang.String"/>
+	<field name="Status" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Telefone" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Ministerio" class="java.lang.String"/>
+	<field name="Grupo" class="java.lang.String"/>
+	<variable name="Status_1" class="java.lang.Integer" resetType="Group" resetGroup="Status" calculation="Count">
+		<variableExpression><![CDATA[$F{Status}]]></variableExpression>
+	</variable>
+	<variable name="Ministerio_1" class="java.lang.Integer" resetType="Group" resetGroup="Status" calculation="Count">
+		<variableExpression><![CDATA[$F{Ministerio}]]></variableExpression>
+	</variable>
+	<group name="Status">
+		<groupExpression><![CDATA[$F{Status}]]></groupExpression>
+		<groupFooter>
+			<band height="33">
+				<rectangle>
+					<reportElement x="0" y="9" width="555" height="15" backcolor="#DBD8D8" uuid="3f5878ff-d536-4dfd-9b9f-1bc4f96cb29c"/>
+					<graphicElement>
+						<pen lineWidth="0.0"/>
+					</graphicElement>
+				</rectangle>
+				<textField>
+					<reportElement x="75" y="9" width="468" height="15" uuid="171bf2db-788a-4dfb-964e-6afa2ea194f3"/>
+					<textElement textAlignment="Center">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Status_1}+" pessoas com status "+$F{Status}.toLowerCase()+" no ministerio "+$F{Ministerio}.toLowerCase()]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="79" backcolor="#16AFD5" uuid="ea04b02b-a7c4-4bda-9f7c-1e736d8c1464"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Dotted"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="11" y="22" width="342" height="33" forecolor="#000000" uuid="c3c55a95-ec5f-4352-b578-69e0948dd933"/>
+				<textElement>
+					<font size="26" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quadrante Ministerial]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="28" splitType="Stretch">
+			<staticText>
+				<reportElement x="11" y="0" width="100" height="20" uuid="0d089cf5-79b3-4c9e-96b8-db3a905fc1e1"/>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Pessoa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="111" y="0" width="111" height="20" uuid="97a62e95-8dfb-4bb7-82d3-12c80e8f8dbe"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Grupo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="222" y="0" width="111" height="20" uuid="d942b699-3e90-4d12-962f-c4f5d05c62e0"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ministerio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="333" y="0" width="111" height="20" uuid="b20ef0df-a65c-404c-8e44-1aff55dc0c29"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Telefone]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="444" y="0" width="111" height="20" uuid="93c9cd6e-cc76-46b8-8f62-357cf186a4da"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Status]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22">
+			<textField>
+				<reportElement x="11" y="0" width="100" height="20" uuid="d772ca2a-ff96-4ea1-954c-c5a4fbdf0b6c"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Pessoa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="111" y="0" width="111" height="20" uuid="15bf645b-a1cb-499c-9bd6-624fc0c927fa"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Grupo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="222" y="0" width="111" height="20" uuid="e2922fd2-1b57-4e69-8c81-db49168ded26"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Ministerio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="333" y="0" width="111" height="20" uuid="fe3b0731-adef-4e34-b21c-32406c8866d6"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Telefone}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="444" y="0" width="111" height="20" uuid="5dfa840c-4d0b-476d-89c8-095c6b3f3026"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Status}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="26" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="3" width="555" height="20" backcolor="#16AFD5" uuid="cf6d72e4-bc54-47bd-849c-c1af026d8858"/>
+				<graphicElement>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+				</graphicElement>
+			</rectangle>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="11" y="7" width="165" height="13" uuid="e06e84e5-602b-43a0-bec9-f4ca3fe6c2db"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="433" y="7" width="80" height="13" uuid="2b90cd02-f11c-45fe-91a2-b031dce9602d"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="513" y="7" width="40" height="13" uuid="3eea1384-cb90-4516-85c6-feba2eb6c50e"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>
